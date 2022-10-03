@@ -71,9 +71,7 @@ export default async function (context: IContext): Promise<void> {
     const dependencies = getDependencies(branchConfig, false);
     const devDependencies = getDependencies(branchConfig, true);
 
-    for (const [pkgName, pkgTag] of Object.entries(branchConfig.devDependencies)) {
-        context.logger.info(`${pkgName}@${pkgTag}`);
-    }
+    context.logger.info(JSON.stringify(branchConfig, null, 2));
 
     const lockfilePath = fs.existsSync("npm-shrinkwrap.json") ? "npm-shrinkwrap.json" : "package-lock.json";
     const changedFiles = ["package.json", lockfilePath];

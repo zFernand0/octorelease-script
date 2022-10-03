@@ -20139,9 +20139,7 @@ function npmUpdate_default(context2) {
     const pluralize = require_pluralize();
     const dependencies = getDependencies(branchConfig, false);
     const devDependencies = getDependencies(branchConfig, true);
-    for (const [pkgName, pkgTag] of Object.entries(branchConfig.devDependencies)) {
-      context2.logger.info(`${pkgName}@${pkgTag}`);
-    }
+    context2.logger.info(JSON.stringify(branchConfig, null, 2));
     const lockfilePath = fs.existsSync("npm-shrinkwrap.json") ? "npm-shrinkwrap.json" : "package-lock.json";
     const changedFiles = ["package.json", lockfilePath];
     context2.logger.info(`Checking for updates to ${pluralize("dependency", Object.keys(dependencies).length, true)} and ${pluralize("dev dependency", Object.keys(devDependencies).length, true)}`);
