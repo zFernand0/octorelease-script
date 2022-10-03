@@ -20155,7 +20155,7 @@ function npmUpdate_default(context2) {
     }
     if (branchConfig.devDependencies) {
       for (const [pkgName, pkgTag] of Object.entries(devDependencies)) {
-        yield exec.exec("echo", [`${pkgName}@${latestVersion}`]);
+        yield exec.exec("echo", [`${pkgName}@${pkgTag}`]);
         yield updateDependency(pkgName, pkgTag, true);
       }
     }
