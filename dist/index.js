@@ -1724,10 +1724,10 @@ var require_oidc_utils = __commonJS({
         return __awaiter(this, void 0, void 0, function* () {
           const httpclient = OidcClient.createHttpClient();
           const res = yield httpclient.getJson(id_token_url).catch((error2) => {
-            throw new Error(`Failed to get ID Token.
-
+            throw new Error(`Failed to get ID Token. 
+ 
         Error Code : ${error2.statusCode}
-
+ 
         Error Message: ${error2.result.message}`);
           });
           const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -20139,6 +20139,9 @@ function npmUpdate_default(context2) {
     const pluralize = require_pluralize();
     const dependencies = getDependencies(branchConfig, false);
     const devDependencies = getDependencies(branchConfig, true);
+    for (const [pkgName, pkgTag] of Object.entries(branchConfig.devDependencies)) {
+      context2.logger.info(`${pkgName}@${pkgTag}`);
+    }
     const lockfilePath = fs.existsSync("npm-shrinkwrap.json") ? "npm-shrinkwrap.json" : "package-lock.json";
     const changedFiles = ["package.json", lockfilePath];
     context2.logger.info(`Checking for updates to ${pluralize("dependency", Object.keys(dependencies).length, true)} and ${pluralize("dev dependency", Object.keys(devDependencies).length, true)}`);
@@ -20155,7 +20158,6 @@ function npmUpdate_default(context2) {
     }
     if (branchConfig.devDependencies) {
       for (const [pkgName, pkgTag] of Object.entries(devDependencies)) {
-        yield exec.exec("echo", [`${pkgName}@${pkgTag}`]);
         yield updateDependency(pkgName, pkgTag, true);
       }
     }

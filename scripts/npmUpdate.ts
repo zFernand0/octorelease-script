@@ -70,6 +70,11 @@ export default async function (context: IContext): Promise<void> {
     const pluralize = require("pluralize");
     const dependencies = getDependencies(branchConfig, false);
     const devDependencies = getDependencies(branchConfig, true);
+
+    for (const [pkgName, pkgTag] of Object.entries(branchConfig.devDependencies)) {
+        context.logger.info(`${pkgName}@${pkgTag}`);
+    }
+
     const lockfilePath = fs.existsSync("npm-shrinkwrap.json") ? "npm-shrinkwrap.json" : "package-lock.json";
     const changedFiles = ["package.json", lockfilePath];
     context.logger.info(`Checking for updates to ${pluralize("dependency", Object.keys(dependencies).length, true)} ` +
@@ -90,7 +95,6 @@ export default async function (context: IContext): Promise<void> {
 
     if (branchConfig.devDependencies) {
         for (const [pkgName, pkgTag] of Object.entries(devDependencies)) {
-            await exec.getExecOutput("echo", [`${pkgName}@${pkgTag}`]);
             await updateDependency(pkgName, pkgTag, true);
         }
     }
