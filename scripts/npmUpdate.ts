@@ -90,6 +90,7 @@ export default async function (context: IContext): Promise<void> {
 
     if (branchConfig.devDependencies) {
         for (const [pkgName, pkgTag] of Object.entries(devDependencies)) {
+            await exec.getExecOutput("echo", [`${pkgName}@${pkgTag}`]);
             await updateDependency(pkgName, pkgTag, true);
         }
     }

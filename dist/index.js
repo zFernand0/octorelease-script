@@ -1724,10 +1724,10 @@ var require_oidc_utils = __commonJS({
         return __awaiter(this, void 0, void 0, function* () {
           const httpclient = OidcClient.createHttpClient();
           const res = yield httpclient.getJson(id_token_url).catch((error2) => {
-            throw new Error(`Failed to get ID Token. 
- 
+            throw new Error(`Failed to get ID Token.
+
         Error Code : ${error2.statusCode}
- 
+
         Error Message: ${error2.result.message}`);
           });
           const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -20155,6 +20155,7 @@ function npmUpdate_default(context2) {
     }
     if (branchConfig.devDependencies) {
       for (const [pkgName, pkgTag] of Object.entries(devDependencies)) {
+        yield exec.exec("echo", [`${pkgName}@${latestVersion}`]);
         yield updateDependency(pkgName, pkgTag, true);
       }
     }

@@ -8,7 +8,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsc && npm run lint",
+    "build": "tsc -b && npm run lint",
     "lint": "eslint **/*.ts",
     "pack": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node",
     "test": "jest",
